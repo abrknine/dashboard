@@ -10,6 +10,6 @@ body {
 
 @layer base {
   html {
-    @apply bg-gray-800 text-white;
+    @apply bg-custom-black text-white;
   }
 }

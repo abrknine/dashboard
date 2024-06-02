@@ -1,5 +1,6 @@
 import React from 'react';
 import './App.css';
+import Dash from './routes/dashboard'
 import Sidebar from './components/sidebar';
 import SearchBar from './components/searchbar';
 import data from './data.json';
@@ -26,7 +27,7 @@ const pieChartData = {
   datasets: [
     {
       data: Object.values(protocolData).map((item) => item.count),
-      backgroundColor: ['#FF6384', '#36A2EB', '#FFCE56'],
+      backgroundColor: ['#5FD6A4', '#FF5F5A', '#0FFFFF'], // Neon green, neon red, neon cyan
     },
   ],
 };
@@ -38,7 +39,8 @@ const lineChartData = {
     {
       label: 'Alerts',
       data: data.map((item) => item.dest_port),
-      borderColor: '#36A2EB',
+      borderColor: '#5FD6A4', // Neon green
+      backgroundColor: '#FF5F5A', // Neon green
       fill: false,
     },
   ],
@@ -51,15 +53,15 @@ const barChartData = {
     {
       label: 'Alerts',
       data: Object.values(protocolData).map((item) => item.count),
-      backgroundColor: '#FF6384',
+      backgroundColor: '#5FD6A4', // Neon red
     },
   ],
 };
 
 const protocolColors = {
-  TCP: 'blue',
-  UDP: 'yellow',
-  // Add more protocols and their colors as needed
+  TCP: '#5FD6A4', // Neon green
+  UDP: '#FF5F5A', // Neon red
+  // Add more protocols and their neon colors as needed
 };
 
 function calculateProtocolPercentages(alertData) {
@@ -79,7 +81,7 @@ function calculateProtocolPercentages(alertData) {
 
   Object.entries(protocolCounts).forEach(([protocol, count]) => {
     const percentage = (count / totalAlerts) * 100;
-    const color = protocolColors[protocol] || 'gray'; // Default color if protocol is not in the map
+    const color = protocolColors[protocol] || '#0FFFFF'; // Default to neon cyan if protocol is not in the map
     protocolPercentages.push({ protocol, percentage, color });
   });
 
@@ -94,33 +96,32 @@ function App() {
     <div className="flex flex-col lg:flex-row h-screen">
       <Sidebar />
       <div className="flex-1 flex flex-col">
-        <div className="p-4 flex justify-end bg-gray-800">
+        <div className="p-4 flex justify-end bg-black">
           <SearchBar />
         </div>
-        <div className="flex-1 p-6 bg-gray-800 overflow-auto">
+        <div className="flex-1 p-6 bg-custom-black overflow-auto">
           <div className="mb-6 flex gap-40">
-            <h1 className="text-white font-bold text-4xl">Traffic: {noOfData}</h1>
+          <h1 className="text-white font-bold text-4xl flex justify-center items-center md:justify-start md:items-center">Traffic <br /> {noOfData}</h1>
+
             <SegmentedLine segments={segments} />
           </div>
-          <div>
-            <h1 className="text-white ">Statistics</h1>
-            <div className="flex flex-col  md:flex-row  md:gap-20 justify-center">
-              <div className="mx-4 mb-4 md:mb-0">
-                <h2 className="text-white">Pie Chart (Protocols)</h2>
-                <Pie data={pieChartData} height={250} width={250} />
-              </div>
-              <div className="mx-4 mb-4 md:mb-0">
-                <h2 className="text-white">Line Chart (Destination Ports)</h2>
-                <Line data={lineChartData} height={200} width={450} />
-              </div>
-              <div className="mx-4 mb-4 md:mb-0">
-                <h2 className="text-white">Bar Chart (Protocols)</h2>
-                <Bar data={barChartData} height={200} width={250} />
-              </div>
+          <h1 className="text-gray-500 text-4xl font-bold mt-8 mb-4 text-left">Statistics</h1>
+          <div className="flex flex-col md:flex-row md:gap-20 justify-center">
+            <div className="mx-4 mb-4 md:mb-0 md:w-1/3">
+              <h2 className="text-gray-500 mb-4 text-center">Pie Chart (Protocols)</h2>
+              <Pie data={pieChartData} height={100} width={100} />
+            </div>    
+            <div className="mx-4 mb-4 md:mb-0 md:w-1/3">
+              <h2 className="text-gray-500 mb-4 text-center">Line Chart (Destination Ports)</h2>
+              <Line data={lineChartData} height={300} width={400} />
+            </div>
+            <div className="mx-4 mb-4 md:mb-0 md:w-1/3">
+              <h2 className="text-gray-500 mb-4 text-center">Bar Chart (Protocols)</h2>
+              <Bar data={barChartData} height={200} width={250} />
             </div>
           </div>
           <div>
-            <h1 className="text-white">Leaderboard</h1>
+            <h1 className="text-gray-500 text-4xl font-bold mt-8 mb-4 text-left">Leaderboard</h1>
             <LeaderboardTable data={data} />
           </div>
         </div>
@@ -130,5 +131,3 @@ function App() {
 }
 
 export default App;
-
-

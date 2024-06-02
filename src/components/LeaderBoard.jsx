@@ -4,7 +4,7 @@ import { FaCalendarAlt, FaCircle, FaNetworkWired } from 'react-icons/fa';
 const LeaderboardTable = ({ data }) => {
   return (
     <div className="overflow-x-auto">
-      <table className="w-full bg-gray-800 text-gray-300 rounded-lg shadow-md">
+      <table className="w-full bg-custom-black text-gray-300 rounded-lg shadow-md">
         <thead>
           <tr className="bg-gray-700">
             <th className="px-4 py-2">Timestamp</th>
