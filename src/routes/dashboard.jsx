@@ -17,7 +17,7 @@ const protocolData = data.reduce((acc, item) => {
     acc[protocol].count++;
   } else {
     acc[protocol] = { count: 1 };
-  }
+  } 
   return acc;
 }, {});
 
@@ -91,7 +91,6 @@ function calculateProtocolPercentages(alertData) {
 
 function  Dash() {
   const segments = calculateProtocolPercentages(data);
-
   return (
     <div className="flex flex-col lg:flex-row h-screen">
       <Sidebar />
@@ -99,17 +98,17 @@ function  Dash() {
         <div className="p-4 flex justify-end bg-gray-800">
           <SearchBar />
         </div>
-        <div className="flex-1 p-6 bg-gray-800 overflow-auto">
-          <div className="mb-6 flex gap-40">
-            <h1 className="text-white font-bold text-4xl">Traffic <br /> {noOfData}</h1>
-            <SegmentedLine segments={segments} />
-          </div>
+        <div className="flex-1 p-6 bg-gray-800 overflow-auto ">
+            <div className=" ml-20 mb-6 flex gap-[350px] justify-center items-center text-center">
+    <h1 className="text-white font-bold text-4xl ml-10">Traffic <br /> {noOfData}</h1>
+    <SegmentedLine segments={segments} />
+    </div>
           <div>
             <h1 className="text-gray-500 text-3xl font-bold mb-4 text-left">Statistics</h1>
             <div className="flex flex-col md:flex-row md:gap-20 justify-center">
               <div className="mx-4 mb-4 md:mb-0">
                 <h2 className="text-gray-500">Pie Chart (Protocols)</h2>
-                <Pie data={pieChartData} height={200} width={200} />
+                <Pie data={pieChartData} height={100} width={100} />
               </div>
               <div className="mx-4 mb-4 md:mb-0">
                 <h2 className="text-gray-500">Line Chart (Destination Ports)</h2>
