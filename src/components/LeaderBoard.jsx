@@ -64,3 +64,4 @@ const LeaderboardTable = ({ data }) => {
 };
 
 export default LeaderboardTable;
+  

@@ -1,6 +1,5 @@
 import React from 'react';
 import './App.css';
-import Dash from './routes/dashboard'
 import Sidebar from './components/sidebar';
 import SearchBar from './components/searchbar';
 import data from './data.json';
@@ -47,21 +46,21 @@ const lineChartData = {
 };
 
 // Prepare data for bar chart
-const barChartData = {
-  labels: Object.keys(protocolData),
-  datasets: [
-    {
-      label: 'Alerts',
-      data: Object.values(protocolData).map((item) => item.count),
-      backgroundColor: '#5FD6A4', // Neon red
-    },
-  ],
-};
-
 const protocolColors = {
   TCP: '#5FD6A4', // Neon green
   UDP: '#FF5F5A', // Neon red
   // Add more protocols and their neon colors as needed
+};
+
+const barChartData = {
+  labels: Object.keys(protocolData),
+  datasets: [
+    {
+      label: 'TCP Alerts',
+      data: Object.values(protocolData).map((item) => item.count),
+      backgroundColor: Object.keys(protocolData).map((protocol) => protocolColors[protocol] || '#0FFFFF'),
+    },
+  ],
 };
 
 function calculateProtocolPercentages(alertData) {
@@ -101,8 +100,7 @@ function App() {
         </div>
         <div className="flex-1 p-6 bg-custom-black overflow-auto">
           <div className="mb-6 flex gap-40">
-          <h1 className="text-white font-bold text-4xl flex justify-center items-center md:justify-start md:items-center">Traffic <br /> {noOfData}</h1>
-
+            <h1 className="text-white font-bold text-4xl flex justify-center items-center md:justify-start md:items-center">Traffic: {noOfData}</h1>
             <SegmentedLine segments={segments} />
           </div>
           <h1 className="text-gray-500 text-4xl font-bold mt-8 mb-4 text-left">Statistics</h1>
